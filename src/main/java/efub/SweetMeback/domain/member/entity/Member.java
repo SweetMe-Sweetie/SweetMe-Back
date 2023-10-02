@@ -1,8 +1,14 @@
 package efub.SweetMeback.domain.member.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "member")
@@ -17,4 +23,14 @@ public class Member {
 
     @Column(nullable = false)
     private String email;
+
+    @Builder
+    public Member(String nickname, String email){
+        this.nickname = nickname;
+        this.email = email;
+    }
+
+    public void updateProfile(String nickname){
+        this.nickname=nickname;
+    }
 }
