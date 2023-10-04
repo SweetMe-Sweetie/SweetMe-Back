@@ -159,12 +159,11 @@ public class OAuthService{
         }
     }
 
-    public Member getCurrentMember(){
+    public Member getCurrentMember() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
-        Optional<Member> memberOptional = memberRepository.findByEmail(userEmail);
-        Member member = memberOptional.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
-
-        return member;
+        String principalName = authentication.getName();
+        Integer memberId = Integer.parseInt(principalName);
+        return memberRepository.findById(memberId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.FORBIDDEN, "인증된 사용자 정보가 없습니다."));
     }
 }

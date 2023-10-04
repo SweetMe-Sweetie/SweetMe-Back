@@ -28,8 +28,6 @@ public class OAuthController {
         String nickname = (String) userInfo.get("nickname");
         String email = (String) userInfo.get("email");
 
-        System.out.println("nickname: " + nickname + " email: "+ email);
-
         // createMember 메서드에 닉네임과 이메일을 전달하여 호출합니다.
         memberService.createMember(nickname, email);
     }
