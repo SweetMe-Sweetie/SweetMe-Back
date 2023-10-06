@@ -1,6 +1,7 @@
 package efub.SweetMeback.domain.member.controller;
 
 import efub.SweetMeback.domain.member.dto.MemberResponseDto;
+import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
 
-    @GetMapping
+    @GetMapping("/{member_id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public MemberResponseDto getMember(){
-        return memberService.getMember();
+    public MemberResponseDto getMember(@PathVariable Integer member_id){
+        Member member = memberService.getMemberById(member_id);
+        return MemberResponseDto.from(member);
     }
 }

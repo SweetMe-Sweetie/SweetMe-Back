@@ -3,29 +3,20 @@ package efub.SweetMeback.domain.member.oauth.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
-import efub.SweetMeback.domain.member.entity.Member;
-import efub.SweetMeback.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuthService{
-
-    private final MemberRepository memberRepository;
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
@@ -66,7 +57,6 @@ public class OAuthService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -111,7 +101,6 @@ public class OAuthService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -121,6 +110,9 @@ public class OAuthService{
 
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+
+            System.out.println("nickname : " + nickname);
+            System.out.println("email : " + email);
 
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
@@ -157,13 +149,5 @@ public class OAuthService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    public Member getCurrentMember() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String principalName = authentication.getName();
-        Integer memberId = Integer.parseInt(principalName);
-        return memberRepository.findById(memberId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.FORBIDDEN, "인증된 사용자 정보가 없습니다."));
     }
 }

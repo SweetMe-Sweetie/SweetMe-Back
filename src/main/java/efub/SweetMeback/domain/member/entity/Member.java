@@ -28,8 +28,4 @@ public class Member {
         this.nickname = nickname;
         this.email = email;
     }
-
-    public void updateProfile(String nickname){
-        this.nickname=nickname;
-    }
 }

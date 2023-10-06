@@ -24,11 +24,11 @@ public class OAuthController {
         String access_Token = oAuthService.getKakaoAccessToken(code);
         HashMap<String, Object> userInfo = oAuthService.getUserInfo(access_Token);
 
-        // HashMap에서 닉네임과 이메일을 가져옵니다.
+        // HashMap에서 닉네임과 이메일을 가져오기
         String nickname = (String) userInfo.get("nickname");
         String email = (String) userInfo.get("email");
 
-        // createMember 메서드에 닉네임과 이메일을 전달하여 호출합니다.
+        // createMember 메서드에 닉네임과 이메일을 전달하여 호출
         memberService.createMember(nickname, email);
     }
 }
