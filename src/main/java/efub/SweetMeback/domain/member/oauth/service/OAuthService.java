@@ -3,24 +3,34 @@ package efub.SweetMeback.domain.member.oauth.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
+import efub.SweetMeback.domain.member.entity.Member;
+import efub.SweetMeback.domain.member.oauth.dto.OAuthResponseDto;
+import efub.SweetMeback.domain.member.repository.MemberRepository;
+import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuthService{
+    private final MemberRepository memberRepository;
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
+
+    public final JwtProvider jwtProvider;
 
     public String getKakaoAccessToken (String code) {
         String access_Token = "";
@@ -77,10 +87,10 @@ public class OAuthService{
         return access_Token;
     }
 
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public Member getUserInfo (String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-        HashMap<String, Object> userInfo = new HashMap<>();
+        Member member = null;
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
             URL url = new URL(reqURL);
@@ -114,15 +124,36 @@ public class OAuthService{
             System.out.println("nickname : " + nickname);
             System.out.println("email : " + email);
 
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
+            member = memberRepository.findByEmail(email);
+            if(member != null) {
+                log.info("이미 가입한 계정");
+            }
+            else{
+                member = Member.builder()
+                        .nickname(nickname)
+                        .email(email)
+                        .build();
+                memberRepository.save(member);
+            }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return member;
+    }
 
-        return userInfo;
+    public OAuthResponseDto signIn(String code){
+        String kakaoToken = getKakaoAccessToken(code);
+        Member member = getUserInfo(kakaoToken);
+
+        String accessToken = jwtProvider.createAccessToken(member.getId());
+        String refreshToken = jwtProvider.createRefreshToken(member.getId());
+        return OAuthResponseDto.builder()
+                .member(member)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public void logout(String access_Token) {
@@ -149,5 +180,15 @@ public class OAuthService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+
+    }
+
+    public Member getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String principalName = authentication.getName();
+        Integer memberId = Integer.parseInt(principalName);
+        return memberRepository.findById(memberId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.FORBIDDEN, "인증된 사용자 정보가 없습니다."));
     }
 }
