@@ -1,7 +1,7 @@
 package efub.SweetMeback.domain.payment.entity;
 
 import efub.SweetMeback.domain.post.entity.Post;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity
