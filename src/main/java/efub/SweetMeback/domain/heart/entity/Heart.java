@@ -2,7 +2,7 @@ package efub.SweetMeback.domain.heart.entity;
 
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.post.entity.Post;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.NoArgsConstructor;
 
 @Entity

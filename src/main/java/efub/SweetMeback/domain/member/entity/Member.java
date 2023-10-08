@@ -1,6 +1,6 @@
 package efub.SweetMeback.domain.member.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +27,5 @@ public class Member {
     public Member(String nickname, String email){
         this.nickname = nickname;
         this.email = email;
-    }
-
-    public void updateProfile(String nickname){
-        this.nickname=nickname;
     }
 }

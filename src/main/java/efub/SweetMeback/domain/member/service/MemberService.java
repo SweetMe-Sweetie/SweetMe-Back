@@ -10,22 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberService {
-    private final MemberRepository memberRepository;
     private final OAuthService oAuthService;
 
-    @Transactional
-    public void createMember(String nickname, String email){
-        Member member = Member.builder()
-                .nickname(nickname)
-                .email(email)
-                .build();
-
-        memberRepository.save(member);
-    }
 
     @Transactional(readOnly = true)
     public MemberResponseDto getMember(){

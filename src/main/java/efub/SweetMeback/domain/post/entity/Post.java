@@ -2,11 +2,14 @@ package efub.SweetMeback.domain.post.entity;
 
 import efub.SweetMeback.domain.global.BaseTimeEntity;
 import efub.SweetMeback.domain.member.entity.Member;
-import jakarta.persistence.*;
+import javax.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "post")
@@ -55,4 +58,22 @@ public class Post extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
+
+    @Builder
+    public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate
+            , LocalDateTime endDate, Integer people, Integer view, boolean recruitment
+            , Category category, Meeting meeting, Contact contact, Member member) {
+        this.title = title;
+        this.content = content;
+        this.deadline = deadline;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.people = people;
+        this.view = view;
+        this.recruitment = recruitment;
+        this.category = category;
+        this.meeting = meeting;
+        this.contact = contact;
+        this.member = member;
+    }
 }

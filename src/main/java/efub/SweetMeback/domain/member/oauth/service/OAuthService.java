@@ -4,7 +4,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import efub.SweetMeback.domain.member.entity.Member;
+import efub.SweetMeback.domain.member.oauth.dto.OAuthResponseDto;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
+import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,19 +19,18 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuthService{
-
     private final MemberRepository memberRepository;
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
+
+    public final JwtProvider jwtProvider;
 
     public String getKakaoAccessToken (String code) {
         String access_Token = "";
@@ -66,7 +67,6 @@ public class OAuthService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             //Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -87,10 +87,10 @@ public class OAuthService{
         return access_Token;
     }
 
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public Member getUserInfo (String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-        HashMap<String, Object> userInfo = new HashMap<>();
+        Member member = null;
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         try {
             URL url = new URL(reqURL);
@@ -111,7 +111,6 @@ public class OAuthService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
 
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
@@ -122,15 +121,39 @@ public class OAuthService{
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
+            System.out.println("nickname : " + nickname);
+            System.out.println("email : " + email);
+
+            member = memberRepository.findByEmail(email);
+            if(member != null) {
+                log.info("이미 가입한 계정");
+            }
+            else{
+                member = Member.builder()
+                        .nickname(nickname)
+                        .email(email)
+                        .build();
+                memberRepository.save(member);
+            }
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return member;
+    }
 
-        return userInfo;
+    public OAuthResponseDto signIn(String code){
+        String kakaoToken = getKakaoAccessToken(code);
+        Member member = getUserInfo(kakaoToken);
+
+        String accessToken = jwtProvider.createAccessToken(member.getId());
+        String refreshToken = jwtProvider.createRefreshToken(member.getId());
+        return OAuthResponseDto.builder()
+                .member(member)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     public void logout(String access_Token) {
@@ -157,6 +180,8 @@ public class OAuthService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+
     }
 
     public Member getCurrentMember() {
