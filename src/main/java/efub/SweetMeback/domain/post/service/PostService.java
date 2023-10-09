@@ -36,4 +36,9 @@ public class PostService {
                         .build()
         );
     }
+
+    public Post findPost(Integer postId){
+        return postRepository.findById(postId)
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글 입니다."));
+    }
 }

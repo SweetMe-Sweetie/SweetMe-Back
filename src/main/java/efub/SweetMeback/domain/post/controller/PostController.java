@@ -20,4 +20,11 @@ public class PostController {
         Post post = postService.createPost(requestDto);
         return new PostResponseDto(post);
     }
+
+    @GetMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public PostResponseDto findPost(@PathVariable Integer post_id){
+        Post post = postService.findPost(post_id);
+        return new PostResponseDto(post);
+    }
 }
