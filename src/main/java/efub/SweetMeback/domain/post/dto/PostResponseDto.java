@@ -4,14 +4,14 @@ import efub.SweetMeback.domain.post.entity.Category;
 import efub.SweetMeback.domain.post.entity.Contact;
 import efub.SweetMeback.domain.post.entity.Meeting;
 import efub.SweetMeback.domain.post.entity.Post;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostResponseDto {
     private Long postId;
     private String memberName;

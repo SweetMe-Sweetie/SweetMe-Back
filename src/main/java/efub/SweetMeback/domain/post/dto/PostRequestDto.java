@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import efub.SweetMeback.domain.post.entity.Category;
 import efub.SweetMeback.domain.post.entity.Contact;
 import efub.SweetMeback.domain.post.entity.Meeting;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostRequestDto {
     private Long memberId;
     private String title;
