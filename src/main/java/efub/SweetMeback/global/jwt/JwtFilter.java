@@ -62,7 +62,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         // memberId Token에서 꺼내기
-        Integer memberId = jwtProvider.getMemberId(token);
+        Long memberId = jwtProvider.getMemberId(token);
         log.debug("memberId: {}", memberId);
         log.debug("isAccess: {} / token: {}", jwtProvider.isAccessToken(token), token);
 

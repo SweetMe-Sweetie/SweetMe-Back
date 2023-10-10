@@ -1,10 +1,13 @@
 package efub.SweetMeback.domain.member.oauth.dto;
 
 import efub.SweetMeback.domain.member.entity.Member;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OAuthResponseDto {
 
     private String nickname;
