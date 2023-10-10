@@ -30,7 +30,7 @@ public class JwtProvider {
     }
 
     // JWT 생성
-    private String createJwt(Integer memberId, String type, Long tokenValidTime) {
+    private String createJwt(Long memberId, String type, Long tokenValidTime) {
         Claims claims = Jwts.claims();
         claims.put(MEMBER_ID, memberId);
 
@@ -44,22 +44,22 @@ public class JwtProvider {
     }
 
     // access 토큰 생성
-    public String createAccessToken(Integer memberId) {
+    public String createAccessToken(Long memberId) {
         return createJwt(memberId, TokenType.ACCESS.type, ACCESS_TOKEN_VALID_TIME);
     }
 
     // refresh 토큰 생성
-    public String createRefreshToken(Integer memberId) {
+    public String createRefreshToken(Long memberId) {
         return createJwt(memberId, TokenType.REFRESH.type, REFRESH_TOKEN_VALID_TIME);
     }
 
     // 회원 정보 조회
-    public Integer getMemberId(String token) {
+    public Long getMemberId(String token) {
         return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody()
-                .get(MEMBER_ID, Integer.class);
+                .get(MEMBER_ID, Long.class);
     }
 
     // 토큰 유효 및 만료 확인
