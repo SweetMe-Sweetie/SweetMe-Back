@@ -6,7 +6,6 @@ import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,7 +16,7 @@ public class Post extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -38,7 +37,7 @@ public class Post extends BaseTimeEntity {
     private Integer people;
 
     @Column(nullable = false)
-    private Integer view;
+    private Long view;
 
     @Column(nullable = false)
     private boolean recruitment;
@@ -61,7 +60,7 @@ public class Post extends BaseTimeEntity {
 
     @Builder
     public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate
-            , LocalDateTime endDate, Integer people, Integer view, boolean recruitment
+            , LocalDateTime endDate, Integer people, Long view, boolean recruitment
             , Category category, Meeting meeting, Contact contact, Member member) {
         this.title = title;
         this.content = content;
