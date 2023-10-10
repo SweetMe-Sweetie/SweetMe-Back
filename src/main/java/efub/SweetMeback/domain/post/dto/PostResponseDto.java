@@ -7,12 +7,13 @@ import efub.SweetMeback.domain.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 public class PostResponseDto {
-    private Integer postId;
+    private Long postId;
     private String memberName;
     private String title;
     private String content;
@@ -21,7 +22,7 @@ public class PostResponseDto {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer people;
-    private Integer view;
+    private Long view;
     private boolean recruitment;
     private Category category;
     private Meeting meeting;

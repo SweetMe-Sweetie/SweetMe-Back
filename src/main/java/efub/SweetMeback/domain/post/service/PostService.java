@@ -28,7 +28,7 @@ public class PostService {
                         .startDate(requestDto.getStartDate())
                         .endDate(requestDto.getEndDate())
                         .people(requestDto.getPeople())
-                        .view(0)
+                        .view(0L)
                         .recruitment(false)
                         .category(requestDto.getCategory())
                         .meeting(requestDto.getMeeting())
@@ -37,7 +37,7 @@ public class PostService {
         );
     }
 
-    public Post findPost(Integer postId){
+    public Post findPost(Long postId){
         return postRepository.findById(postId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글 입니다."));
     }
