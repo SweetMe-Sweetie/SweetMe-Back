@@ -1,10 +1,10 @@
-package efub.SweetMeback.domain.member.oauth.service;
+package efub.SweetMeback.domain.oauth.service;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import efub.SweetMeback.domain.member.entity.Member;
-import efub.SweetMeback.domain.member.oauth.dto.OAuthResponseDto;
+import efub.SweetMeback.domain.oauth.dto.OAuthResponseDto;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
 import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

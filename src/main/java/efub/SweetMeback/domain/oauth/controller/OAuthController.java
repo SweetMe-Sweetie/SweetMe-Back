@@ -1,8 +1,8 @@
-package efub.SweetMeback.domain.member.oauth.controller;
+package efub.SweetMeback.domain.oauth.controller;
 
-import efub.SweetMeback.domain.member.oauth.dto.OAuthRequestDto;
-import efub.SweetMeback.domain.member.oauth.dto.OAuthResponseDto;
-import efub.SweetMeback.domain.member.oauth.service.OAuthService;
+import efub.SweetMeback.domain.oauth.dto.OAuthRequestDto;
+import efub.SweetMeback.domain.oauth.dto.OAuthResponseDto;
+import efub.SweetMeback.domain.oauth.service.OAuthService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
