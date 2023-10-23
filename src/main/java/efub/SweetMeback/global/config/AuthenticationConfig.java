@@ -43,7 +43,5 @@ public class AuthenticationConfig {
                 .addFilterBefore(new JwtExceptionFilter(), JwtFilter.class)
                 .build();
     }
-
-
 }
 
