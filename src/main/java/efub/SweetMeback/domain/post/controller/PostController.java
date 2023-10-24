@@ -24,7 +24,7 @@ public class PostController {
     @GetMapping("/{post_id}")
     @ResponseStatus(value = HttpStatus.OK)
     public PostResponseDto findPost(@PathVariable Long post_id){
-        Post post = postService.findPost(post_id);
+        Post post = postService.findPostById(post_id);
         return new PostResponseDto(post);
     }
 }
