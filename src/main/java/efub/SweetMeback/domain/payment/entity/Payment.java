@@ -25,25 +25,24 @@ public class Payment extends BaseTimeEntity {
 
     private String pg;
 
-    @Column(name = "merchant_uid")
-    private String merchantUid;
-
-    private String detail;
-
-    private Long amount;
+    private String merchant_uid;
 
     private String name;
 
-    private String email;
+    private Long amount;
+
+    private String buyer_name;
+
+    private String buyer_email;
 
     @Builder
-    public Payment(Post post, String pg, String merchantUid, String detail, Long amount, String name, String email) {
+    public Payment(Post post, String pg, String merchant_uid, String name, Long amount, String buyer_name, String buyer_email) {
         this.post = post;
         this.pg = pg;
-        this.merchantUid = merchantUid;
-        this.detail = detail;
-        this.amount = amount;
+        this.merchant_uid = merchant_uid;
         this.name = name;
-        this.email = email;
+        this.amount = amount;
+        this.buyer_name = buyer_name;
+        this.buyer_email = buyer_email;
     }
 }

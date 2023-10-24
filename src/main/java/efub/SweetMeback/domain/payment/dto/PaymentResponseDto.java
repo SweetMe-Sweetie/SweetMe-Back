@@ -12,22 +12,22 @@ import java.time.LocalDateTime;
 public class PaymentResponseDto {
     private Long postId;
     private String pg;
-    private String merchantUid;
-    private String detail;
-    private Long amount;
+    private String merchant_uid;
     private String name;
-    private String email;
+    private Long amount;
+    private String buyer_name;
+    private String buyer_email;
     private boolean promotion;
     private LocalDateTime createdDate;
 
     public PaymentResponseDto(Payment payment) {
         this.postId = payment.getPost().getId();
         this.pg = payment.getPg();
-        this.merchantUid = payment.getMerchantUid();
-        this.detail = payment.getDetail();
-        this.amount = payment.getAmount();
+        this.merchant_uid = payment.getMerchant_uid();
         this.name = payment.getName();
-        this.email = payment.getEmail();
+        this.amount = payment.getAmount();
+        this.buyer_name = payment.getBuyer_name();
+        this.buyer_email = payment.getBuyer_email();
         this.promotion = payment.getPost().isPromotion();
         this.createdDate = payment.getCreatedDate();
     }

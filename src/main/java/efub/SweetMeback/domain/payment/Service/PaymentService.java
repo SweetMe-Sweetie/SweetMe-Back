@@ -37,11 +37,11 @@ public class PaymentService {
         return paymentRepository.save(Payment.builder()
                         .post(post)
                         .pg("kakaopay.TC0ONETIME")
-                        .merchantUid("sweetme_" + new Date().getTime())
-                        .detail("스윗미 모집글 홍보비")
+                        .merchant_uid("sweetme_" + new Date().getTime())
+                        .name("스윗미 모집글 홍보비")
                         .amount(1000L)
-                        .name(member.getName())
-                        .email(member.getEmail())
+                        .buyer_name(member.getName())
+                        .buyer_email(member.getEmail())
                         .build());
     }
 }
