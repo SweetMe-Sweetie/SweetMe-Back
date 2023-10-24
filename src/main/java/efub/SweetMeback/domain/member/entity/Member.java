@@ -18,10 +18,13 @@ public class Member {
     private Long id;
 
     @Column(nullable = false)
-    private String nickname;
+    private String name;
 
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String nickname;
 
     @Builder
     public Member(String nickname, String email){

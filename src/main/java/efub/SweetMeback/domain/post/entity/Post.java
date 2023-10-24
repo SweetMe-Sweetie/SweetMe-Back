@@ -58,10 +58,13 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
 
+    @Column(nullable = false, columnDefinition = "false")
+    private boolean promotion;
+
     @Builder
     public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate
             , LocalDateTime endDate, Integer people, Long view, boolean recruitment
-            , Category category, Meeting meeting, Contact contact, Member member) {
+            , Category category, Meeting meeting, Contact contact, Member member, boolean promotion) {
         this.title = title;
         this.content = content;
         this.deadline = deadline;
@@ -74,5 +77,10 @@ public class Post extends BaseTimeEntity {
         this.meeting = meeting;
         this.contact = contact;
         this.member = member;
+        this.promotion = promotion;
+    }
+
+    public void setPromotion(boolean promotion) {
+        this.promotion = promotion;
     }
 }
