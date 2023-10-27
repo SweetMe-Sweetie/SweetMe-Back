@@ -1,4 +1,4 @@
-package efub.SweetMeback.domain.member.oauth.dto;
+package efub.SweetMeback.domain.oauth.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
