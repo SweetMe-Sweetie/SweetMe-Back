@@ -118,6 +118,7 @@ public class OAuthService{
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
+            String name = properties.getAsJsonObject().get("nickname").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
@@ -130,6 +131,7 @@ public class OAuthService{
             }
             else{
                 member = Member.builder()
+                        .name(name)
                         .nickname(nickname)
                         .email(email)
                         .build();
