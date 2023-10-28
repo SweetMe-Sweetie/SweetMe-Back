@@ -58,7 +58,7 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
 
-    @Column(nullable = false, columnDefinition = "false")
+    @Column(nullable = false)
     private boolean promotion;
 
     @Builder
