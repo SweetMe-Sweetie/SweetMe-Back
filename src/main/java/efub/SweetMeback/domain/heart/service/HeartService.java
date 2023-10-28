@@ -37,6 +37,16 @@ public class HeartService {
         heartRepository.save(heart);
     }
 
+    public void delete(Long postId, Long memberId){
+        Post post = postService.findPostById(postId);
+        Member member = memberService.findMemberById(memberId);
+
+        Heart heart = heartRepository.findByMemberAndPost(member, post)
+                .orElseThrow(()->new RuntimeException("좋아요가 존재하지 않습니다."));
+
+        heartRepository.delete(heart);
+    }
+
     @Transactional(readOnly = true)
     public boolean isExistsByMemberAndPost(Member member, Post post) {
         return heartRepository.existsByMemberAndPost(member, post);

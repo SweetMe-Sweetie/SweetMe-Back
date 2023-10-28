@@ -37,4 +37,11 @@ public class PostController {
         heartService.create(post_id, requestDto.getMemberId());
         return "좋아요를 눌렀습니다.";
     }
+
+    @DeleteMapping("/{post_id}/hearts")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String deleteHeart(@PathVariable final Long post_id, @RequestBody final HeartRequestDto requestDto){
+        heartService.delete(post_id, requestDto.getMemberId());
+        return "좋아요가 취소되었습니다.";
+    }
 }
