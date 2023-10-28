@@ -33,6 +33,7 @@ public class PostService {
                         .category(requestDto.getCategory())
                         .meeting(requestDto.getMeeting())
                         .contact(requestDto.getContact())
+                        .promotion(false)
                         .build()
         );
     }
