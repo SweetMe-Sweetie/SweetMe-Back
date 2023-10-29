@@ -2,6 +2,7 @@ package efub.SweetMeback.domain.payment.Service;
 
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.service.MemberService;
+import efub.SweetMeback.domain.oauth.service.OAuthService;
 import efub.SweetMeback.domain.payment.dto.PaymentRequestDto;
 import efub.SweetMeback.domain.payment.entity.Payment;
 import efub.SweetMeback.domain.payment.repository.PaymentRepository;
@@ -22,11 +23,11 @@ public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final PostService postService;
-    private final MemberService memberService;
+    private final OAuthService oAuthService;
 
     public Payment requestPayment(PaymentRequestDto requestDto) {
         Post post = postService.findPostById(requestDto.getPostId());
-        Member member = memberService.findMemberById(requestDto.getMemberId());
+        Member member = oAuthService.getCurrentMember();
 
         if (post.isPromotion() == true) {
             throw new IllegalArgumentException("홍보 중인 게시글입니다.");
