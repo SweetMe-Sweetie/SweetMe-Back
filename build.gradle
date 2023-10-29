@@ -41,7 +41,3 @@ dependencies {
 
 	//implementation 'com.github.iamport:iamport-rest-client-java:0.2.23'
 }
-
-test {
-	useJUnitPlatform()
-}
