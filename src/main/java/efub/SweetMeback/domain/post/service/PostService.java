@@ -2,6 +2,8 @@ package efub.SweetMeback.domain.post.service;
 
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
+import efub.SweetMeback.domain.member.service.MemberService;
+import efub.SweetMeback.domain.oauth.service.OAuthService;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.repository.PostRepository;
@@ -13,12 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class PostService {
-    private final MemberRepository memberRepository;
     private final PostRepository postRepository;
+    private final OAuthService oAuthService;
 
     public Post createPost(PostRequestDto requestDto){
-        Member member = memberRepository.findById(requestDto.getMemberId())
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 계정입니다."));
+        Member member = oAuthService.getCurrentMember();
         return postRepository.save(
                 Post.builder()
                         .member(member)
