@@ -8,5 +8,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PaymentRequestDto {
     private Long postId;
-    private Long memberId;
 }

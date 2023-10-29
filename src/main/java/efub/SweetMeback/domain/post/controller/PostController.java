@@ -1,6 +1,5 @@
 package efub.SweetMeback.domain.post.controller;
 
-import efub.SweetMeback.domain.heart.dto.HeartRequestDto;
 import efub.SweetMeback.domain.heart.service.HeartService;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDto;
@@ -11,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping(value = "/posts", produces = "application/json; charset=utf8")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
@@ -33,15 +32,15 @@ public class PostController {
 
     @PostMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public String createHeart(@PathVariable final Long post_id, @RequestBody final HeartRequestDto requestDto){
-        heartService.create(post_id, requestDto.getMemberId());
+    public String createHeart(@PathVariable final Long post_id){
+        heartService.create(post_id);
         return "좋아요를 눌렀습니다.";
     }
 
     @DeleteMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.OK)
-    public String deleteHeart(@PathVariable final Long post_id, @RequestBody final HeartRequestDto requestDto){
-        heartService.delete(post_id, requestDto.getMemberId());
+    public String deleteHeart(@PathVariable final Long post_id){
+        heartService.delete(post_id);
         return "좋아요가 취소되었습니다.";
     }
 }
