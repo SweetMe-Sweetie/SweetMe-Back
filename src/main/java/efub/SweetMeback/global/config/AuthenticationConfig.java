@@ -36,7 +36,7 @@ public class AuthenticationConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/kakao/login", "/docs", "/v3/**").permitAll()
+                .antMatchers("/posts", "/posts/{post_id}", "/kakao/login", "/docs", "/v3/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
