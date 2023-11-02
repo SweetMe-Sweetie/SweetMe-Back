@@ -22,7 +22,7 @@ public class PostResponseDto {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer people;
-    private Long view;
+    private Integer view;
     private boolean recruitment;
     private Category category;
     private Meeting meeting;

@@ -36,8 +36,8 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer people;
 
-    @Column(nullable = false)
-    private Long view;
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private Integer view;
 
     @Column(nullable = false)
     private boolean recruitment;
@@ -63,7 +63,7 @@ public class Post extends BaseTimeEntity {
 
     @Builder
     public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate
-            , LocalDateTime endDate, Integer people, Long view, boolean recruitment
+            , LocalDateTime endDate, Integer people, Integer view, boolean recruitment
             , Category category, Meeting meeting, Contact contact, Member member, boolean promotion) {
         this.title = title;
         this.content = content;
