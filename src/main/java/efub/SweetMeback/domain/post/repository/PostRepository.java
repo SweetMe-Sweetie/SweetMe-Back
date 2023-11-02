@@ -15,4 +15,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Integer updateView(@Param("id") Long id);
 
     List<Post> findAllByMemberId(Long memberId);
+
+    List<Post> findAllByPromotion(boolean promotion);
 }

@@ -67,4 +67,10 @@ public class PostService {
         List<Post> postList = postRepository.findAllByMemberId(member.getId());
         return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDto> findPostsByPromotion() {
+        List<Post> postList = postRepository.findAllByPromotion(true);
+        return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
+    }
 }
