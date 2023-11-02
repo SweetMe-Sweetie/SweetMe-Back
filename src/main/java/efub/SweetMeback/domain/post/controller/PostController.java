@@ -39,6 +39,11 @@ public class PostController {
         return ResponseEntity.ok(postService.findAllPosts());
     }
 
+    @GetMapping("/member")
+    public ResponseEntity<List<PostResponseDto>> findPostsByMember() {
+        return ResponseEntity.ok(postService.findPostsByMember());
+    }
+
     @PostMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String createHeart(@PathVariable final Long post_id){

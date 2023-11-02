@@ -60,4 +60,11 @@ public class PostService {
         List<Post> postList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
         return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDto> findPostsByMember() {
+        Member member = oAuthService.getCurrentMember();
+        List<Post> postList = postRepository.findAllByMemberId(member.getId());
+        return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
+    }
 }
