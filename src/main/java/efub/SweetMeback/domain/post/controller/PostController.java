@@ -7,7 +7,10 @@ import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/posts", produces = "application/json; charset=utf8")
@@ -29,6 +32,11 @@ public class PostController {
         postService.updateView(post_id);
         Post post = postService.findPostById(post_id);
         return new PostResponseDto(post);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PostResponseDto>> findAllPosts() {
+        return ResponseEntity.ok(postService.findAllPosts());
     }
 
     @PostMapping("/{post_id}/hearts")

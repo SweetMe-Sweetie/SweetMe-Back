@@ -5,11 +5,17 @@ import efub.SweetMeback.domain.member.repository.MemberRepository;
 import efub.SweetMeback.domain.member.service.MemberService;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
+import efub.SweetMeback.domain.post.dto.PostResponseDto;
 import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,6 +45,7 @@ public class PostService {
         );
     }
 
+    @Transactional(readOnly = true)
     public Post findPostById(Long postId){
         return postRepository.findById(postId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글 입니다."));
@@ -46,5 +53,11 @@ public class PostService {
 
     public Integer updateView(Long postId) {
         return postRepository.updateView(postId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDto> findAllPosts() {
+        List<Post> postList = postRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
+        return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
 }
