@@ -94,6 +94,10 @@ public class Post extends BaseTimeEntity {
         this.contact=requestDto.getContact();
     }
 
+    public void setRecruitment(boolean recruitment) {
+        this.recruitment = recruitment;
+    }
+
     public void setPromotion(boolean promotion) {
         this.promotion = promotion;
     }

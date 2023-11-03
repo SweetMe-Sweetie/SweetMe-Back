@@ -58,4 +58,13 @@ public class PostService {
         post.modifyPost(requestDto);
         return post;
     }
+
+    public Post changeRecruitment(Long postId){
+        Member member = oAuthService.getCurrentMember();
+        Post post = postRepository.findByIdAndMemberId(postId, member.getId())
+                .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        post.setRecruitment(!post.isRecruitment());
+        postRepository.save(post);
+        return post;
+    }
 }
