@@ -37,6 +37,13 @@ public class PostController {
         return "성공적으로 삭제되었습니다";
     }
 
+    @PutMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public PostResponseDto modifyPost(@PathVariable Long post_id, @RequestBody PostRequestDto requestDto){
+        Post post = postService.modifyPost(post_id, requestDto);
+        return new PostResponseDto(post);
+    }
+
     @PostMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String createHeart(@PathVariable final Long post_id){
