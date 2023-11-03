@@ -30,6 +30,13 @@ public class PostController {
         return new PostResponseDto(post);
     }
 
+    @DeleteMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String removePost(@PathVariable Long post_id){
+        postService.removePost(post_id);
+        return "성공적으로 삭제되었습니다";
+    }
+
     @PostMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String createHeart(@PathVariable final Long post_id){

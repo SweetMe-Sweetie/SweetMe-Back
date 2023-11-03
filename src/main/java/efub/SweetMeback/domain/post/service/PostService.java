@@ -43,4 +43,11 @@ public class PostService {
         return postRepository.findById(postId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글 입니다."));
     }
+
+    public void removePost(Long postId){
+        Member member = oAuthService.getCurrentMember();
+        Post post = postRepository.findByIdAndMemberId(postId, member.getId())
+                .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        postRepository.delete(post);
+    }
 }
