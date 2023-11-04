@@ -3,14 +3,14 @@ package efub.SweetMeback.domain.post.entity;
 import efub.SweetMeback.domain.global.BaseTimeEntity;
 import efub.SweetMeback.domain.member.entity.Member;
 import javax.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "post")
 public class Post extends BaseTimeEntity {
     @Id
@@ -61,10 +61,17 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private boolean promotion;
 
+    @Setter
+    private boolean isHeart;
+
+    @Setter
+    @Column(nullable = false, columnDefinition = "0")
+    private Long heartCount;
+
     @Builder
-    public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate
-            , LocalDateTime endDate, Integer people, Integer view, boolean recruitment
-            , Category category, Meeting meeting, Contact contact, Member member, boolean promotion) {
+    public Post(String title, String content, LocalDateTime deadline, LocalDateTime startDate, LocalDateTime endDate,
+                Integer people, Integer view, boolean recruitment, Category category, Meeting meeting, Contact contact,
+                Member member, boolean promotion, boolean isHeart, Long heartCount) {
         this.title = title;
         this.content = content;
         this.deadline = deadline;
@@ -78,6 +85,8 @@ public class Post extends BaseTimeEntity {
         this.contact = contact;
         this.member = member;
         this.promotion = promotion;
+        this.isHeart = isHeart;
+        this.heartCount = heartCount;
     }
 
     public void setPromotion(boolean promotion) {

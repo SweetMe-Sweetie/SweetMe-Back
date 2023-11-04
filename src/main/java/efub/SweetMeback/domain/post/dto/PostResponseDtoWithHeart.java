@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostResponseDto {
+public class PostResponseDtoWithHeart {
     private Long postId;
     private String memberName;
     private String title;
@@ -28,8 +28,10 @@ public class PostResponseDto {
     private Meeting meeting;
     private Contact contact;
     private boolean promotion;
+    private boolean isHeart;
+    private Long heartCount;
 
-    public PostResponseDto(Post post){
+    public PostResponseDtoWithHeart(Post post, boolean isHeart, Long heartCount){
         this.postId = post.getId();
         this.memberName = post.getMember().getNickname();
         this.title = post.getTitle();
@@ -45,5 +47,7 @@ public class PostResponseDto {
         this.meeting = post.getMeeting();
         this.contact = post.getContact();
         this.promotion = post.isPromotion();
+        this.isHeart = isHeart;
+        this.heartCount = heartCount;
     }
 }

@@ -9,17 +9,23 @@ import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
-@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class HeartService {
+
     private final HeartRepository heartRepository;
-    private final PostService postService;
     private final OAuthService oAuthService;
+    @Autowired
+    @Lazy
+    private PostService postService;
+
 
     //좋아요 생성
     public void create(Long postId){
@@ -36,6 +42,7 @@ public class HeartService {
                 .build();
 
         heartRepository.save(heart);
+        increaseHeartCount(post);
     }
 
     public void delete(Long postId){
@@ -46,10 +53,35 @@ public class HeartService {
                 .orElseThrow(()->new RuntimeException("좋아요가 존재하지 않습니다."));
 
         heartRepository.delete(heart);
+        decreaseHeartCount(post);
     }
 
     @Transactional(readOnly = true)
     public boolean isExistsByMemberAndPost(Member member, Post post) {
         return heartRepository.existsByMemberAndPost(member, post);
+    }
+
+    private void increaseHeartCount(Post post) {
+        post.setHeartCount(post.getHeartCount() + 1);
+    }
+
+    private void decreaseHeartCount(Post post) {
+        post.setHeartCount(post.getHeartCount() - 1);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isHeartByMember(Post post) {
+        if (oAuthService.getCurrentMember() == null) {
+            return false;
+        }
+
+        Member member = oAuthService.getCurrentMember();
+
+        return heartRepository.existsByMemberAndPost(member, post);
+    }
+
+    @Transactional(readOnly = true)
+    public Long getHeartCount(Post post) {
+        return post.getHeartCount();
     }
 }

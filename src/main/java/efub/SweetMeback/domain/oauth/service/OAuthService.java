@@ -182,12 +182,14 @@ public class OAuthService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
     }
 
     public Member getCurrentMember() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
+            return null;
+        }
+
         String principalName = authentication.getName();
         Long memberId = Long.parseLong(principalName);
         return memberRepository.findById(memberId).orElseThrow(() ->

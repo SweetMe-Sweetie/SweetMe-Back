@@ -3,6 +3,7 @@ package efub.SweetMeback.domain.post.controller;
 import efub.SweetMeback.domain.heart.service.HeartService;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDto;
+import efub.SweetMeback.domain.post.dto.PostResponseDtoWithHeart;
 import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,19 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PostResponseDto>> findAllPosts() {
-        return ResponseEntity.ok(postService.findAllPosts());
+    public ResponseEntity<List<PostResponseDtoWithHeart>> findAllPostsWithHeart() {
+        return ResponseEntity.ok(postService.findAllPostsWithHeart());
     }
 
     @GetMapping("/member")
     public ResponseEntity<List<PostResponseDto>> findPostsByMember() {
         return ResponseEntity.ok(postService.findPostsByMember());
     }
+
+//    @GetMapping("/heart")
+//    public ResponseEntity<List<PostResponseDto>> findPostsByHeart() {
+//        return ResponseEntity.ok(postService.findPostsByHeart());
+//    }
 
     @GetMapping("/promotion")
     public ResponseEntity<List<PostResponseDto>> findPostsByPromotion() {
