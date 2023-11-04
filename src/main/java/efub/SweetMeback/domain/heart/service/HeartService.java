@@ -3,17 +3,14 @@ package efub.SweetMeback.domain.heart.service;
 import efub.SweetMeback.domain.heart.entity.Heart;
 import efub.SweetMeback.domain.heart.repository.HeartRepository;
 import efub.SweetMeback.domain.member.entity.Member;
-import efub.SweetMeback.domain.member.service.MemberService;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
 import efub.SweetMeback.domain.post.entity.Post;
 import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Transactional

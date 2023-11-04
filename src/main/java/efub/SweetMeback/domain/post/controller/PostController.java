@@ -9,7 +9,6 @@ import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,10 +48,10 @@ public class PostController {
         return ResponseEntity.ok(postService.findPostsByMember());
     }
 
-//    @GetMapping("/heart")
-//    public ResponseEntity<List<PostResponseDto>> findPostsByHeart() {
-//        return ResponseEntity.ok(postService.findPostsByHeart());
-//    }
+    @GetMapping("/heart")
+    public ResponseEntity<List<PostResponseDtoWithHeart>> findPostsByHeart() {
+        return ResponseEntity.ok(postService.findPostsByHeart());
+    }
 
     @GetMapping("/promotion")
     public ResponseEntity<List<PostResponseDtoWithHeart>> findPostsByPromotion() {
