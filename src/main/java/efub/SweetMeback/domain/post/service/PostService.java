@@ -74,18 +74,24 @@ public class PostService {
         List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
         for (Post post : postList) {
             boolean isHeart = heartService.isHeartByMember(post);
-            Long heartCount = heartService.getHeartCount(post);
-            responseList.add(new PostResponseDtoWithHeart(post, isHeart, heartCount));
+            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
         }
 
         return responseList;
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponseDto> findPostsByMember() {
+    public List<PostResponseDtoWithHeart> findPostsByMember() {
         Member member = oAuthService.getCurrentMember();
-        List<Post> postList = postRepository.findAllByMemberId(member.getId());
-        return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
+        List<Post> postList = postRepository.findAllByMemberId(member.getId(), Sort.by(Sort.Direction.DESC, "createdDate"));
+
+        List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
+        for (Post post : postList) {
+            boolean isHeart = heartService.isHeartByMember(post);
+            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
+        }
+
+        return responseList;
     }
 
 //    @Transactional(readOnly = true)
@@ -96,8 +102,15 @@ public class PostService {
 //    }
 
     @Transactional(readOnly = true)
-    public List<PostResponseDto> findPostsByPromotion() {
+    public List<PostResponseDtoWithHeart> findPostsByPromotion() {
         List<Post> postList = postRepository.findAllByPromotion(true);
-        return postList.stream().map(PostResponseDto::new).collect(Collectors.toList());
+
+        List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
+        for (Post post : postList) {
+            boolean isHeart = heartService.isHeartByMember(post);
+            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
+        }
+
+        return responseList;
     }
 }

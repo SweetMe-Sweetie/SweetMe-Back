@@ -31,7 +31,7 @@ public class PostResponseDtoWithHeart {
     private boolean isHeart;
     private Long heartCount;
 
-    public PostResponseDtoWithHeart(Post post, boolean isHeart, Long heartCount){
+    public PostResponseDtoWithHeart(Post post, boolean isHeart){
         this.postId = post.getId();
         this.memberName = post.getMember().getNickname();
         this.title = post.getTitle();
@@ -48,6 +48,6 @@ public class PostResponseDtoWithHeart {
         this.contact = post.getContact();
         this.promotion = post.isPromotion();
         this.isHeart = isHeart;
-        this.heartCount = heartCount;
+        this.heartCount = post.getHeartCount();
     }
 }
