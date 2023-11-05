@@ -3,6 +3,8 @@ package efub.SweetMeback.domain.post.entity;
 import efub.SweetMeback.domain.global.BaseTimeEntity;
 import efub.SweetMeback.domain.member.entity.Member;
 import javax.persistence.*;
+
+import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -78,6 +80,22 @@ public class Post extends BaseTimeEntity {
         this.contact = contact;
         this.member = member;
         this.promotion = promotion;
+    }
+
+    public void modifyPost(PostRequestDto requestDto){
+        this.title= requestDto.getTitle();
+        this.content= requestDto.getContent();
+        this.deadline=requestDto.getDeadLine();
+        this.startDate=requestDto.getStartDate();
+        this.endDate=requestDto.getEndDate();
+        this.people=requestDto.getPeople();
+        this.category=requestDto.getCategory();
+        this.meeting=requestDto.getMeeting();
+        this.contact=requestDto.getContact();
+    }
+
+    public void setRecruitment(boolean recruitment) {
+        this.recruitment = recruitment;
     }
 
     public void setPromotion(boolean promotion) {

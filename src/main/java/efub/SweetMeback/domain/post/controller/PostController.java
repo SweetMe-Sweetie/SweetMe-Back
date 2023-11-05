@@ -30,6 +30,27 @@ public class PostController {
         return new PostResponseDto(post);
     }
 
+    @DeleteMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String removePost(@PathVariable Long post_id){
+        postService.removePost(post_id);
+        return "성공적으로 삭제되었습니다";
+    }
+
+    @PutMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public PostResponseDto modifyPost(@PathVariable Long post_id, @RequestBody PostRequestDto requestDto){
+        Post post = postService.modifyPost(post_id, requestDto);
+        return new PostResponseDto(post);
+    }
+
+    @PatchMapping("/{post_id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public Boolean chaneRecruitment(@PathVariable Long post_id){
+        Post post = postService.changeRecruitment(post_id);
+        return post.isRecruitment();
+    }
+
     @PostMapping("/{post_id}/hearts")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String createHeart(@PathVariable final Long post_id){
