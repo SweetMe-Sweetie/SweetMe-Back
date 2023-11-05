@@ -1,6 +1,7 @@
 package efub.SweetMeback.domain.member.service;
 
 import efub.SweetMeback.domain.member.dto.MemberResponseDto;
+import efub.SweetMeback.domain.member.dto.MemberUpdateRequestDto;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
@@ -24,9 +25,11 @@ public class MemberService {
         return new MemberResponseDto(nickname, email);
     }
 
-    @Transactional(readOnly = true)
-    public Member findMemberById(Long memberId) {
-        return memberRepository.findById(memberId)
-                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 계정입니다."));
+    public void updateMemberNickname(MemberUpdateRequestDto requestDto){
+        Member member = oAuthService.getCurrentMember();
+        member.updateMemberNickname(requestDto.getNickname());
+        memberRepository.save(member);
     }
+
+
 }

@@ -32,4 +32,8 @@ public class Member {
         this.nickname = nickname;
         this.email = email;
     }
+
+    public void updateMemberNickname(String nickname){
+        this.nickname = nickname;
+    }
 }
