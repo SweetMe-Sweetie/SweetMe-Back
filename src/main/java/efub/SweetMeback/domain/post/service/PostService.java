@@ -112,6 +112,7 @@ public class PostService {
         }
 
         return responseList;
+    }
 
     public void removePost(Long postId){
         Member member = oAuthService.getCurrentMember();
