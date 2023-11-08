@@ -113,6 +113,20 @@ public class PostService {
         }
 
         return responseList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDtoWithHeart> filtering(PostFilteringRequest filteringRequest) {
+        List<Post> postList = postRepository.filteringAll(filteringRequest);
+
+        List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
+        for (Post post : postList) {
+            boolean isHeart = heartService.isHeartByMember(post);
+            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
+        }
+
+        return responseList;
+    }
 
     public void removePost(Long postId){
         Member member = oAuthService.getCurrentMember();
@@ -137,18 +151,5 @@ public class PostService {
         postRepository.save(post);
         return post;
 
-    }
-
-    @Transactional(readOnly = true)
-    public List<PostResponseDtoWithHeart> filtering(PostFilteringRequest filteringRequest) {
-        List<Post> postList = postRepository.filteringAll(filteringRequest);
-
-        List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
-        for (Post post : postList) {
-            boolean isHeart = heartService.isHeartByMember(post);
-            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
-        }
-
-        return responseList;
     }
 }
