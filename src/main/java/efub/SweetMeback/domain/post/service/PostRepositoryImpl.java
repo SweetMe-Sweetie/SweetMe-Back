@@ -71,7 +71,4 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         }
         return null;
     }
-
-
-
 }

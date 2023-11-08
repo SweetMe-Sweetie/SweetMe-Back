@@ -8,5 +8,4 @@ import java.util.List;
 public interface PostRepositoryCustom {
 
     List<Post> filteringAll(PostFilteringRequest filteringRequest);
-
 }
