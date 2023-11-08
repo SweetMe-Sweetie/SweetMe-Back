@@ -1,6 +1,7 @@
 package efub.SweetMeback.domain.post.controller;
 
 import efub.SweetMeback.domain.heart.service.HeartService;
+import efub.SweetMeback.domain.post.dto.PostFilteringRequest;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDtoWithHeart;
@@ -58,6 +59,11 @@ public class PostController {
         return ResponseEntity.ok(postService.findPostsByPromotion());
     }
 
+    @GetMapping("/filtering")
+    public ResponseEntity<List<PostResponseDtoWithHeart>> filtering(PostFilteringRequest filteringRequest) {
+        return ResponseEntity.ok(postService.filtering(filteringRequest));
+    }
+
     @DeleteMapping("/{post_id}")
     @ResponseStatus(value = HttpStatus.OK)
     public String removePost(@PathVariable Long post_id){
@@ -74,7 +80,7 @@ public class PostController {
 
     @PatchMapping("/{post_id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Boolean chaneRecruitment(@PathVariable Long post_id){
+    public Boolean changeRecruitment(@PathVariable Long post_id) {
         Post post = postService.changeRecruitment(post_id);
         return post.isRecruitment();
     }
