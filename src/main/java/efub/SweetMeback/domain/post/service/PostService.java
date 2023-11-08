@@ -3,6 +3,7 @@ package efub.SweetMeback.domain.post.service;
 import efub.SweetMeback.domain.heart.service.HeartService;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
+import efub.SweetMeback.domain.post.dto.PostFilteringRequest;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDtoWithHeart;
 import efub.SweetMeback.domain.post.entity.Post;
@@ -106,6 +107,19 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponseDtoWithHeart> findPostsByPromotion() {
         List<Post> postList = postRepository.findAllByPromotion(true);
+
+        List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
+        for (Post post : postList) {
+            boolean isHeart = heartService.isHeartByMember(post);
+            responseList.add(new PostResponseDtoWithHeart(post, isHeart));
+        }
+
+        return responseList;
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostResponseDtoWithHeart> filtering(PostFilteringRequest filteringRequest) {
+        List<Post> postList = postRepository.filteringAll(filteringRequest);
 
         List<PostResponseDtoWithHeart> responseList = new ArrayList<>();
         for (Post post : postList) {
