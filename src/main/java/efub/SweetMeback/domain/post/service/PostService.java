@@ -54,6 +54,7 @@ public class PostService {
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 게시글 입니다."));
     }
 
+
     public Integer updateView(Long postId) {
         return postRepository.updateView(postId);
     }
@@ -112,6 +113,30 @@ public class PostService {
         }
 
         return responseList;
+
+    public void removePost(Long postId){
+        Member member = oAuthService.getCurrentMember();
+        Post post = postRepository.findByIdAndMemberId(postId, member.getId())
+                .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        postRepository.delete(post);
+    }
+
+    public Post modifyPost(Long postId, PostRequestDto requestDto){
+        Member member = oAuthService.getCurrentMember();
+        Post post = postRepository.findByIdAndMemberId(postId, member.getId())
+                .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        post.modifyPost(requestDto);
+        return post;
+    }
+
+    public Post changeRecruitment(Long postId){
+        Member member = oAuthService.getCurrentMember();
+        Post post = postRepository.findByIdAndMemberId(postId, member.getId())
+                .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        post.setRecruitment(!post.isRecruitment());
+        postRepository.save(post);
+        return post;
+
     }
 
     @Transactional(readOnly = true)
