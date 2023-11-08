@@ -1,6 +1,7 @@
 package efub.SweetMeback.domain.post.controller;
 
 import efub.SweetMeback.domain.heart.service.HeartService;
+import efub.SweetMeback.domain.post.dto.PostFilteringRequest;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDtoWithHeart;
@@ -56,6 +57,11 @@ public class PostController {
     @GetMapping("/promotion")
     public ResponseEntity<List<PostResponseDtoWithHeart>> findPostsByPromotion() {
         return ResponseEntity.ok(postService.findPostsByPromotion());
+    }
+
+    @GetMapping("/filtering")
+    public ResponseEntity<List<PostResponseDtoWithHeart>> filtering(PostFilteringRequest filteringRequest) {
+        return ResponseEntity.ok(postService.filtering(filteringRequest));
     }
 
     @PostMapping("/{post_id}/hearts")
