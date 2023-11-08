@@ -44,6 +44,8 @@ public class PostService {
                         .meeting(requestDto.getMeeting())
                         .contact(requestDto.getContact())
                         .promotion(false)
+                        .isHeart(false)
+                        .heartCount(0L)
                         .build()
         );
     }
