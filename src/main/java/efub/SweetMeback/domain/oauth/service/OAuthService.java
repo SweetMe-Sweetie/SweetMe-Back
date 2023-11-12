@@ -31,6 +31,8 @@ public class OAuthService{
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
 
+    private boolean isFirst;
+
     public final JwtProvider jwtProvider;
 
     public String getKakaoAccessToken (String code) {
@@ -131,6 +133,7 @@ public class OAuthService{
             member = memberRepository.findByEmail(email);
             if(member != null) {
                 log.info("이미 가입한 계정");
+                isFirst=false;
             }
             else{
                 member = Member.builder()
@@ -140,6 +143,7 @@ public class OAuthService{
                         .profileImage(profileImage)
                         .build();
                 memberRepository.save(member);
+                isFirst=true;
             }
 
         } catch (IOException e) {
@@ -159,6 +163,7 @@ public class OAuthService{
                 .member(member)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .isfirst(isFirst)
                 .build();
     }
 
