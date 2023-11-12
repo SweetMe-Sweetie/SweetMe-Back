@@ -31,6 +31,8 @@ public class OAuthService{
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
 
+    private boolean isFirst;
+
     public final JwtProvider jwtProvider;
 
     public String getKakaoAccessToken (String code) {
@@ -118,25 +120,35 @@ public class OAuthService{
 
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+            JsonObject kakao_profile = kakao_account.get("profile").getAsJsonObject();
 
             String name = properties.getAsJsonObject().get("nickname").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String profileImage;
+            if(kakao_profile.getAsJsonObject().get("is_default_image").getAsBoolean())
+                profileImage = "https://drive.google.com/file/d/1Ty3KesiUVDeWs6YPOP-iXA5IG3Z-h6hD/view?usp=drive_link";
+            else
+                profileImage = kakao_profile.getAsJsonObject().get("profile_image_url").getAsString();
 
             System.out.println("nickname : " + nickname);
             System.out.println("email : " + email);
+            System.out.println("profile_image: "+ profileImage);
 
             member = memberRepository.findByEmail(email);
             if(member != null) {
                 log.info("이미 가입한 계정");
+                isFirst=false;
             }
             else{
                 member = Member.builder()
                         .name(name)
                         .nickname(nickname)
                         .email(email)
+                        .profileImage(profileImage)
                         .build();
                 memberRepository.save(member);
+                isFirst=true;
             }
 
         } catch (IOException e) {
@@ -156,6 +168,7 @@ public class OAuthService{
                 .member(member)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .isfirst(isFirst)
                 .build();
     }
 

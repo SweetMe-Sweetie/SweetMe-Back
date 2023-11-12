@@ -22,7 +22,8 @@ public class MemberService {
         Member member = oAuthService.getCurrentMember();
         String nickname = member.getNickname();
         String email = member.getEmail();
-        return new MemberResponseDto(nickname, email);
+        String profileImage = member.getProfileImage();
+        return new MemberResponseDto(nickname, email, profileImage);
     }
 
     public void updateMemberNickname(MemberUpdateRequestDto requestDto){

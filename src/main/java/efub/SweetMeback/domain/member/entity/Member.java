@@ -26,11 +26,15 @@ public class Member {
     @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
+    private String profileImage;
+
     @Builder
-    public Member(String name, String nickname, String email){
+    public Member(String name, String nickname, String email, String profileImage){
         this.name=name;
         this.nickname = nickname;
         this.email = email;
+        this.profileImage = profileImage;
     }
 
     public void updateMemberNickname(String nickname){
