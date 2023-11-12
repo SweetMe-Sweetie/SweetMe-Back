@@ -122,9 +122,11 @@ public class OAuthService{
             String name = properties.getAsJsonObject().get("nickname").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            String profileImage = properties.getAsJsonObject().get("profile_image").getAsString();
 
             System.out.println("nickname : " + nickname);
             System.out.println("email : " + email);
+            System.out.println("profile_image: "+ profileImage);
 
             member = memberRepository.findByEmail(email);
             if(member != null) {
@@ -135,6 +137,7 @@ public class OAuthService{
                         .name(name)
                         .nickname(nickname)
                         .email(email)
+                        .profileImage(profileImage)
                         .build();
                 memberRepository.save(member);
             }
