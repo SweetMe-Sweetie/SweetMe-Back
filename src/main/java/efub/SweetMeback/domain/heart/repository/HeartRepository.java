@@ -13,4 +13,7 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     //작성자와 게시글 기준으로 heart 조회
     Optional<Heart> findByMemberAndPost(Member member, Post post);
+
+    //사용자가 누른 좋아요 모두 삭제
+    void deleteAllByMember(Member member);
 }
