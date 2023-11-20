@@ -3,35 +3,39 @@ package efub.SweetMeback.domain.oauth.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
+import efub.SweetMeback.domain.heart.repository.HeartRepository;
 import efub.SweetMeback.domain.member.entity.Member;
-import efub.SweetMeback.domain.oauth.dto.OAuthResponseDto;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
+import efub.SweetMeback.domain.post.repository.PostRepository;
 import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OAuthService{
     private final MemberRepository memberRepository;
+    private final HeartRepository heartRepository;
+    private final PostRepository postRepository;
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
 
-    private boolean isFirst;
+    public boolean isFirst;
 
     public final JwtProvider jwtProvider;
 
@@ -158,20 +162,6 @@ public class OAuthService{
         return member;
     }
 
-    public OAuthResponseDto signIn(String code){
-        String kakaoToken = getKakaoAccessToken(code);
-        Member member = getUserInfo(kakaoToken);
-
-        String accessToken = jwtProvider.createAccessToken(member.getId());
-        String refreshToken = jwtProvider.createRefreshToken(member.getId());
-        return OAuthResponseDto.builder()
-                .member(member)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .isfirst(isFirst)
-                .build();
-    }
-
     public void logout(String access_Token) {
         String reqURL = "https://kapi.kakao.com/v1/user/logout";
         try {
@@ -180,12 +170,52 @@ public class OAuthService{
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
-            conn.disconnect();
-        } catch (MalformedURLException e){
-            e.printStackTrace();
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void unlink(String access_Token) {
+        Member member = getCurrentMember();
+        String reqURL = "https://kapi.kakao.com/v1/user/unlink";
+
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        heartRepository.deleteAllByMember(member);
+        postRepository.deleteAllByMember(member);
+        memberRepository.delete(member);
     }
 
     public Member getCurrentMember() {
