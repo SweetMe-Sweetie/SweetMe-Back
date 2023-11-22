@@ -1,8 +1,10 @@
 package efub.SweetMeback.domain.post.service;
 
+import efub.SweetMeback.domain.heart.repository.HeartRepository;
 import efub.SweetMeback.domain.heart.service.HeartService;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
+import efub.SweetMeback.domain.payment.repository.PaymentRepository;
 import efub.SweetMeback.domain.post.dto.PostFilteringRequest;
 import efub.SweetMeback.domain.post.dto.PostRequestDto;
 import efub.SweetMeback.domain.post.dto.PostResponseDtoWithHeart;
@@ -24,6 +26,8 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final HeartRepository heartRepository;
+    private final PaymentRepository paymentRepository;
     private final OAuthService oAuthService;
     private final HeartService heartService;
 
@@ -134,6 +138,8 @@ public class PostService {
         Member member = oAuthService.getCurrentMember();
         Post post = postRepository.findByIdAndMemberId(postId, member.getId())
                 .orElseThrow(()->new IllegalArgumentException("잘못된 접근입니다."));
+        heartRepository.deleteByPost(post);
+        paymentRepository.deleteByPost(post);
         postRepository.delete(post);
     }
 
