@@ -1,6 +1,5 @@
 package efub.SweetMeback.domain.oauth.controller;
 
-import com.sun.source.tree.MemberSelectTree;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.service.MemberService;
 import efub.SweetMeback.domain.oauth.dto.OAuthRequestDto;
@@ -10,7 +9,6 @@ import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 
 @Slf4j
