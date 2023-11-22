@@ -23,5 +23,7 @@ public interface PostRepository extends JpaRepository<Post, Long>, PostRepositor
   
     Optional<Post> findByIdAndMemberId(Long id, Long memberId);
 
+    List<Post> findAllByMember(Member member);
+
     void deleteAllByMember(Member member);
 }

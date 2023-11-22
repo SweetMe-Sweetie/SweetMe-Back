@@ -1,6 +1,8 @@
 package efub.SweetMeback.domain.oauth.controller;
 
+import com.sun.source.tree.MemberSelectTree;
 import efub.SweetMeback.domain.member.entity.Member;
+import efub.SweetMeback.domain.member.service.MemberService;
 import efub.SweetMeback.domain.oauth.dto.OAuthRequestDto;
 import efub.SweetMeback.domain.oauth.dto.OAuthResponseDto;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
@@ -19,6 +21,8 @@ public class OAuthController {
 
     private final OAuthService oAuthService;
     private final JwtProvider jwtProvider;
+
+    private final MemberService memberService;
 
     @ResponseBody
     @PostMapping("/login")
@@ -64,9 +68,12 @@ public class OAuthController {
     public String unlink(HttpSession session){
         // 세션에서 사용자 정보를 가져옴
         String access_Token = (String)session.getAttribute("access_Token");
+        Member member = oAuthService.getCurrentMember();
 
         if(access_Token != null && !"".equals(access_Token)){
             oAuthService.unlink(access_Token);
+            memberService.deleteMember(member);
+
             session.removeAttribute("access_Token");
             session.removeAttribute("userId");
             System.out.println("unlink success");
