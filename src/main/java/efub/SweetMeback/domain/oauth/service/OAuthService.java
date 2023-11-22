@@ -28,8 +28,10 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class OAuthService{
     private final MemberRepository memberRepository;
-    private final HeartRepository heartRepository;
-    private final PostRepository postRepository;
+//    private final HeartRepository heartRepository;
+//    private final PostRepository postRepository;
+//    private final HeartService heartService;
+
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
@@ -213,9 +215,11 @@ public class OAuthService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        heartRepository.deleteAllByMember(member);
-        postRepository.deleteAllByMember(member);
-        memberRepository.delete(member);
+
+//        heartRepository.deleteAllByMember(member);
+//        heartService.deleteForPost(member);
+//        postRepository.deleteAllByMember(member);
+//        memberRepository.delete(member);
     }
 
     public Member getCurrentMember() {
