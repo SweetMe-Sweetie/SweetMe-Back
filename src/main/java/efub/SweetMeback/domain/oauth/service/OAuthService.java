@@ -3,10 +3,8 @@ package efub.SweetMeback.domain.oauth.service;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
-import efub.SweetMeback.domain.heart.repository.HeartRepository;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.member.repository.MemberRepository;
-import efub.SweetMeback.domain.post.repository.PostRepository;
 import efub.SweetMeback.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +26,6 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class OAuthService{
     private final MemberRepository memberRepository;
-//    private final HeartRepository heartRepository;
-//    private final PostRepository postRepository;
-//    private final HeartService heartService;
-
     @Value("${kakao.client-id}")
     private String clientId;
     @Value("${kakao.redirect-url}")
@@ -215,11 +209,6 @@ public class OAuthService{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        heartRepository.deleteAllByMember(member);
-//        heartService.deleteForPost(member);
-//        postRepository.deleteAllByMember(member);
-//        memberRepository.delete(member);
     }
 
     public Member getCurrentMember() {
