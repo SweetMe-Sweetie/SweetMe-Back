@@ -5,12 +5,16 @@ import efub.SweetMeback.domain.heart.repository.HeartRepository;
 import efub.SweetMeback.domain.member.entity.Member;
 import efub.SweetMeback.domain.oauth.service.OAuthService;
 import efub.SweetMeback.domain.post.entity.Post;
+import efub.SweetMeback.domain.post.repository.PostRepository;
 import efub.SweetMeback.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -19,6 +23,8 @@ public class HeartService {
 
     private final HeartRepository heartRepository;
     private final OAuthService oAuthService;
+    private final PostRepository postRepository;
+
     @Autowired
     @Lazy
     private PostService postService;
@@ -51,6 +57,14 @@ public class HeartService {
 
         heartRepository.delete(heart);
         decreaseHeartCount(post);
+    }
+
+    //탈퇴하려는 사용자가 작성한 게시물의 좋아요 모두 삭제
+    public void deleteForPost(Member member){
+        List<Post> postList = postRepository.findAllByMember(member);
+        for(Post post : postList){
+            heartRepository.deleteByPost(post);
+        }
     }
 
     @Transactional(readOnly = true)

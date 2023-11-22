@@ -16,4 +16,6 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     //사용자가 누른 좋아요 모두 삭제
     void deleteAllByMember(Member member);
+
+    void deleteByPost(Post post);
 }
