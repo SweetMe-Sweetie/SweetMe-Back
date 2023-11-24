@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class PostResponseDto {
     private Long postId;
     private String memberName;
+    private String profileImage;
     private String title;
     private String content;
     private LocalDateTime createdDate;
@@ -32,6 +33,7 @@ public class PostResponseDto {
     public PostResponseDto(Post post){
         this.postId = post.getId();
         this.memberName = post.getMember().getNickname();
+        this.profileImage = post.getMember().getProfileImage();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.createdDate = post.getCreatedDate();
