@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class PostResponseDtoWithHeart {
     private Long postId;
     private String memberName;
+    private String profileImage;
     private String title;
     private String content;
     private LocalDateTime createdDate;
@@ -34,6 +35,7 @@ public class PostResponseDtoWithHeart {
     public PostResponseDtoWithHeart(Post post, boolean isHeart){
         this.postId = post.getId();
         this.memberName = post.getMember().getNickname();
+        this.profileImage = post.getMember().getProfileImage();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.createdDate = post.getCreatedDate();
