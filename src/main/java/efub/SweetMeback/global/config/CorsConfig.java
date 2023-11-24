@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000","https://sweetme.vercel.app/oauth/kakao/callback")
+                .allowedOrigins("http://localhost:3000","https://sweetme.vercel.app")
                 .allowCredentials(true)
                 .allowedHeaders("Authorization", "Content-Type")
                 .exposedHeaders("Authorization")
