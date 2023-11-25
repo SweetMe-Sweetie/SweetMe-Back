@@ -2,19 +2,19 @@
 
 > EFUB 3rd toy-project Sweetie SweetMe
 
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/0d793cf9-2afa-4840-99d5-83c6f8f8de24" width=300 />
+<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/0d793cf9-2afa-4840-99d5-83c6f8f8de24" width=250 />
 
 <br>
 
 ## 🍭 프로젝트 설명
 
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/25cd47e2-5e9b-476c-9ebb-e8a9993157e3" width=400 />
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/1328466a-2240-4a2c-bd05-8ee7baae5b1e" width="400">
+<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/8ccd639b-42f1-499e-a26a-31a2d1cb3638" width="490">
+<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/fe43f472-c29d-4152-9498-348785ff21dc" width="490">
 
 <details>
 <summary>추가 페이지</summary>
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/911e7bb2-5241-4fce-89e8-447781ad068f" width="400">
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/ce6a5aa5-a30b-483e-a914-49422034708f" width="400">
+<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/41c1ab5b-b301-48c6-84fd-0283c4ea4465" width="490">
+<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/b58576a7-ef4d-4b4b-98bf-491796767391" width="490">
 </details>
 
 ### 📚 스터디 모집 서비스 SweetMe
@@ -40,14 +40,9 @@
 
 <br>
 
-### 📜 APIs
-
-
-<br>
-
 ## 📌 Commit Convention
 
-### [TAG] 메시지
+### TAG: 메시지
 
 |  태그 이름   |             설명              |
 |:--------:|:---------------------------:|
@@ -93,6 +88,10 @@
 ## ☁️ ERD
 
 ![SweetMe](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/4fccce3d-b5c6-45d3-8130-c8915a9c9678)
+
+<br>
+
+## 📜 API 명세서
 
 <br>
 
