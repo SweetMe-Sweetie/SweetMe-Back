@@ -82,6 +82,7 @@
 
 ### 아키텍쳐 구조
 
+![아키텍처 구조](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/97473239/15b30a99-afff-4c71-87de-e3327ce6c2a4)
 
 <br>
 
