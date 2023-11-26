@@ -36,7 +36,7 @@
 |:-----------------------------------------------------------------------------------------:|:------------------------------------------------------------------:|
 |             <img src="https://avatars.githubusercontent.com/u/89291223?s=400&u=64dcff931bf6efee8bb8cc371573472faa9b373f&v=4"/>             | <img src="https://avatars.githubusercontent.com/u/97473239?v=4"/> |
 |                     [@hannah0226](https://github.com/hannah0226)                      |            [@rovemin](https://github.com/orgs/SweetMe-Sweetie/people/rovemin)            |
-| 프로젝트 세팅 및 엔티티 생성<br>배포 & CI/CD 환경 구축<br>카카오 OAuth 로그인 개발<br>게시글 작성/수정/삭제 API 개발<br>좋아요 API 개발 |   카카오 결제 API 개발<br>게시글 조회 & 필터링 API 개발<br>게시글 정렬 API 개발<br>ghithub wiki API 명세서 작성   |      
+| 프로젝트 세팅 및 엔티티 생성<br>카카오 OAuth 로그인 개발<br>게시글 작성/수정/삭제 API 개발<br>좋아요 API 개발<br>배포 & CI/CD 환경 구축 |   카카오 결제 API 개발<br>게시글 조회 & 필터링 API 개발<br>게시글 정렬 API 개발<br>GitHub Wiki API 명세서 작성   |      
 
 <br>
 
