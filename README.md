@@ -7,14 +7,15 @@
 <br>
 
 ## 🍭 프로젝트 설명
-
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/8ccd639b-42f1-499e-a26a-31a2d1cb3638" width="490">
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/fe43f472-c29d-4152-9498-348785ff21dc" width="490">
+![메인페이지](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/8ccd639b-42f1-499e-a26a-31a2d1cb3638)
+![모집글페이지](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/fe43f472-c29d-4152-9498-348785ff21dc)
 
 <details>
 <summary>추가 페이지</summary>
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/41c1ab5b-b301-48c6-84fd-0283c4ea4465" width="490">
-<img src="https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/b58576a7-ef4d-4b4b-98bf-491796767391" width="490">
+    
+![로그인페이지](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/41c1ab5b-b301-48c6-84fd-0283c4ea4465)
+![마이페이지](https://github.com/SweetMe-Sweetie/SweetMe-Back/assets/89291223/b58576a7-ef4d-4b4b-98bf-491796767391)
+    
 </details>
 
 ### 📚 스터디 모집 서비스 SweetMe
